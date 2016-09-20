@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     int[][] winningPositions = {{0,1,2},{3,4,5},{6,7,8},{0,3,6},{1,4,7},{2,5,8},{2,4,6},{0,4,8}};
     boolean gameIsActive = true;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if(gameState[clickedCell] == 2 && gameIsActive) {
+        if(gameState[clickedCell] == 2 && gameIsActive ) {
             gameState[clickedCell] = player;
             counter.setTranslationY(-1000);
             if (player == 0) {
@@ -64,6 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 winnerMessage.setText( winner + "wins");
                 newGameLayout.setVisibility(View.VISIBLE);
                 gameIsActive = false;
+            } else {
+                boolean isDraw = true;
+                for (int x : gameState){
+                    if (x == 2) isDraw = false;
+                }
+                if (isDraw) {
+                    LinearLayout newGameLayout = (LinearLayout) findViewById(R.id.newGame_layout);
+                    TextView winnerMessage = (TextView) findViewById(R.id.winner_message);
+                    winnerMessage.setText("Draw");
+                    newGameLayout.setVisibility(View.VISIBLE);
+                    gameIsActive = false;
+                }
             }
         }
 
